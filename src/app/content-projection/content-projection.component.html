@@ -1,0 +1,38 @@
+<ng-template #templateFromParent let-data="data" let-component="component">
+  <h4>Same ng-template with different content in {{ component }}</h4>
+  <p>{{ data }}</p>
+</ng-template>
+
+<fieldset>
+  <legend><b>ng-content: Using different templates based on the scenario for the same position within a
+    component.Data can be same or different based on the scenario.</b></legend>
+  <ng-content select="h1"></ng-content>
+  <ng-content select="h3"></ng-content>
+  <ng-content select="h4"></ng-content>
+  <ng-content select=".box"></ng-content>
+  <ng-content select="[id=bell]"></ng-content>
+  <ng-content select="h6"></ng-content>
+  <ng-content></ng-content>
+  <ng-content></ng-content>
+</fieldset>
+
+<fieldset>
+  <legend><b>ng-template:Reusing the same template for different/same data. Template can be reused across
+  parent and child components.</b>
+  </legend>
+  <ng-container
+    [ngTemplateOutlet]="templateFromParent"
+    [ngTemplateOutletContext]="{ data: data, component: 'Parent Component' }"
+  ></ng-container>
+
+  <app-ng-template [templateFromParent]="templateFromParent"></app-ng-template>
+</fieldset>
+
+<fieldset>
+  <legend><b>ng-container: Does not get added to the DOM. Avoids unnecessary nested html tags
+    eg:div in the DOM.</b></legend>
+
+  <ng-container *ngFor="let x of userData">
+    <div>{{x.name}}</div>
+  </ng-container>
+</fieldset>
